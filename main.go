@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-	"image/color"
 	"log"
+	"luigi.vanacore/go-snake/game"
 )
 
 const (
@@ -11,75 +11,19 @@ const (
 	screenHeight = 480
 )
 
-var node *ShapeNode
-
-const (
-	Up = iota
-	Down
-	Left
-	Right
-)
-
-type ShapeNode struct {
-	Image     *ebiten.Image
-	Transform ebiten.GeoM
-}
-
-func (s *ShapeNode) getImage() *ebiten.Image {
-	return s.Image
-}
-
-type SnakePart struct {
-	BodyRect *ShapeNode
-}
-
-func (s *SnakePart) getNode() *ShapeNode {
-	return s.BodyRect
-}
-
-type Snake struct {
-	direction int
-	size      int
-	speed     int
-	lives     int
-	scores    int
-	isDead    bool
-	body      []*SnakePart
-}
-
-func (s *Snake) Init() {
-	s.IncreaseBody()
-}
-
-func (s *Snake) IncreaseBody() {
-	snakePart := SnakePart{&ShapeNode{Image: ebiten.NewImage(50, 50), Transform: ebiten.GeoM{}}}
-	snakePart.getNode().getImage().Fill(color.RGBA{0xff, 0, 0, 0xff})
-	s.body = append(s.body, &snakePart)
-}
-
-func (s *Snake) getBodyPart() *SnakePart {
-	return s.body[0]
-}
-
-//var image *ebiten.Image
-
-type Game struct {
-	snake Snake
-}
-
 //
-//func (g *Game) Update() error {
+//func (g *game) Update() error {
 //return nil
 //}
 //
-//func (g *Game) Draw(screen *ebiten.Image) {
+//func (g *game) Draw(screen *ebiten.Image) {
 //	op := &ebiten.DrawImageOptions{}
 //	screen.DrawImage(image, op)
 //
 //}
 //
 //
-//func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
+//func (g *game) Layout(outsideWidth, outsideHeight int) (int, int) {
 //	return screenWidth, screenHeight
 //}
 
@@ -116,25 +60,8 @@ type Game struct {
 
 //};
 
-func (g *Game) Init() {
-	g.snake.Init()
-}
-
-func (g *Game) Update() error {
-	return nil
-}
-
-func (g *Game) Draw(screen *ebiten.Image) {
-	screen.DrawImage(g.snake.getBodyPart().getNode().getImage(), nil)
-
-}
-
-func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return 320, 240
-}
-
 func main() {
-	game := &Game{}
+	game := &game.Game{}
 	game.Init()
 	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("go-snake")
