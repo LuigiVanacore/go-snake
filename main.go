@@ -6,24 +6,59 @@ import (
 	"log"
 )
 
-
 const (
 	screenWidth  = 640
 	screenHeight = 480
 )
 
-type SnakePart struct {
+var node *ShapeNode
 
+const (
+	Up = iota
+	Down
+	Left
+	Right
+)
+
+type ShapeNode struct {
+	Image     *ebiten.Image
+	Transform ebiten.GeoM
 }
 
+func (s *ShapeNode) getImage() *ebiten.Image {
+	return s.Image
+}
 
-type Snake struct{
-	size int
-	speed int
-	lives int
-	scores int
-	isDead bool
-	BodyRect *ebiten.Image
+type SnakePart struct {
+	BodyRect *ShapeNode
+}
+
+func (s *SnakePart) getNode() *ShapeNode {
+	return s.BodyRect
+}
+
+type Snake struct {
+	direction int
+	size      int
+	speed     int
+	lives     int
+	scores    int
+	isDead    bool
+	body      []*SnakePart
+}
+
+func (s *Snake) Init() {
+	s.IncreaseBody()
+}
+
+func (s *Snake) IncreaseBody() {
+	snakePart := SnakePart{&ShapeNode{Image: ebiten.NewImage(50, 50), Transform: ebiten.GeoM{}}}
+	snakePart.getNode().getImage().Fill(color.RGBA{0xff, 0, 0, 0xff})
+	s.body = append(s.body, &snakePart)
+}
+
+func (s *Snake) getBodyPart() *SnakePart {
+	return s.body[0]
 }
 
 //var image *ebiten.Image
@@ -31,7 +66,6 @@ type Snake struct{
 type Game struct {
 	snake Snake
 }
-
 
 //
 //func (g *Game) Update() error {
@@ -79,40 +113,25 @@ type Game struct {
 //
 //SnakeContainer m_snakeBody; // Segment vector.
 //int m_size; // Size of the graphics.
-//Direction m_dir; // Current direction.
-//int m_speed; // Speed of the snake.
-//int m_lives; // Lives.
-//int m_score; // Score.
-//bool m_lost; // Losing state.
-//sf::RectangleShape m_bodyRect; // Shape used in rendering.
+
 //};
 
-
-
-
+func (g *Game) Init() {
+	g.snake.Init()
+}
 
 func (g *Game) Update() error {
 	return nil
 }
 
-
-
-func (g *Game) Init() {
-	g.snake.BodyRect = ebiten.NewImage(50,50)
-	g.snake.BodyRect.Fill(color.RGBA{0xff, 0, 0, 0xff})
-	//g.snake.BodyRect.Fill(color.RGBA{0xff, 0, 0, 0xff} )
-}
-
 func (g *Game) Draw(screen *ebiten.Image) {
-	screen.DrawImage(g.snake.BodyRect, nil)
+	screen.DrawImage(g.snake.getBodyPart().getNode().getImage(), nil)
 
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
 	return 320, 240
 }
-
-
 
 func main() {
 	game := &Game{}
@@ -121,4 +140,5 @@ func main() {
 	ebiten.SetWindowTitle("go-snake")
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
-	}}
+	}
+}
