@@ -5,6 +5,8 @@ import (
 	"image/color"
 )
 
+type Direction int
+
 const (
 	Up = iota
 	Down
@@ -21,11 +23,11 @@ func (s *SnakePart) getNode() *ShapeNode {
 }
 
 type Snake struct {
-	direction int
+	direction Direction
 	size      int
 	speed     int
 	lives     int
-	scores    int
+	score     int
 	isDead    bool
 	body      []*SnakePart
 }
@@ -40,6 +42,34 @@ func (s *Snake) IncreaseBody() {
 	s.body = append(s.body, &snakePart)
 }
 
-func (s *Snake) getBodyPart() *SnakePart {
+func (s *Snake) GetBodyPart() *SnakePart {
 	return s.body[0]
+}
+
+func (s *Snake) SetDirection(direction Direction) {
+	s.direction = direction
+}
+
+func (s *Snake) GetDirection() Direction {
+	return s.direction
+}
+
+func (s *Snake) GetSpeed() int {
+	return s.speed
+}
+
+func (s *Snake) GetLives() int {
+	return s.lives
+}
+
+func (s *Snake) GetScore() int {
+	return s.score
+}
+
+func (s *Snake) IncreaseScore() {
+	s.score++
+}
+
+func (s *Snake) HasLost() bool {
+	return s.isDead
 }
