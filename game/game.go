@@ -1,6 +1,8 @@
 package game
 
-import "github.com/hajimehoshi/ebiten/v2"
+import (
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
 type Game struct {
 	snake Snake
@@ -15,7 +17,8 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	screen.DrawImage(g.snake.getBodyPart().getNode().getImage(), nil)
+	drawOption := ebiten.DrawImageOptions{GeoM: *g.snake.GetBodyPart().GetNode().GetTransform()}
+	screen.DrawImage(g.snake.GetBodyPart().GetNode().GetImage(), &drawOption)
 
 }
 

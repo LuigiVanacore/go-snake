@@ -1,0 +1,30 @@
+package game
+
+import (
+	"luigi.vanacore/go-snake/Core/Vector2D"
+)
+
+type World struct {
+	windowsSize Vector2D.Vector2D
+}
+
+//
+//class World{
+//public:
+//World(sf::Vector2u l_windSize);
+//~World();
+//
+//int GetBlockSize();
+//
+//void RespawnApple();
+//
+//void Update(Snake& l_player);
+//void Render(sf::RenderWindow& l_window);
+//private:
+//sf::Vector2u m_windowSize;
+//sf::Vector2i m_item;
+//int m_blockSize;
+//
+//sf::CircleShape m_appleShape;
+//sf::RectangleShape m_bounds[4];
+//};

@@ -12,13 +12,14 @@ const (
 	Down
 	Left
 	Right
+	None
 )
 
 type SnakePart struct {
 	BodyRect *ShapeNode
 }
 
-func (s *SnakePart) getNode() *ShapeNode {
+func (s *SnakePart) GetNode() *ShapeNode {
 	return s.BodyRect
 }
 
@@ -33,12 +34,14 @@ type Snake struct {
 }
 
 func (s *Snake) Init() {
-	s.IncreaseBody()
+	transform := ebiten.GeoM{}
+	s.IncreaseBody(&transform)
 }
 
-func (s *Snake) IncreaseBody() {
+func (s *Snake) IncreaseBody(m *ebiten.GeoM) {
 	snakePart := SnakePart{&ShapeNode{Image: ebiten.NewImage(50, 50), Transform: ebiten.GeoM{}}}
-	snakePart.getNode().getImage().Fill(color.RGBA{0xff, 0, 0, 0xff})
+	snakePart.GetNode().GetImage().Fill(color.RGBA{0xff, 0, 0, 0xff})
+	snakePart.GetNode().SetTransform(m)
 	s.body = append(s.body, &snakePart)
 }
 
@@ -72,4 +75,17 @@ func (s *Snake) IncreaseScore() {
 
 func (s *Snake) HasLost() bool {
 	return s.isDead
+}
+
+func (s *Snake) Reset() {
+	s.body = nil
+	transform := ebiten.GeoM{}
+	s.IncreaseBody(&transform)
+	s.IncreaseBody(&transform)
+	s.IncreaseBody(&transform)
+	s.SetDirection(None)
+	s.speed = 15
+	s.lives = 3
+	s.score = 0
+	s.isDead = false
 }
