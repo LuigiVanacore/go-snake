@@ -13,11 +13,11 @@ type Shape struct {
 }
 
 func (s *Shape) SetTexture() {
-
+	//TODO
 }
 
 func (s *Shape) SetTextureRect() {
-
+	//TODO
 }
 
 //void setTexture(const Texture* texture, bool resetRect = false);

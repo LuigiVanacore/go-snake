@@ -20,9 +20,11 @@ func (rect *RectangleShape) GetSize() Vector2D.Vector2D {
 }
 
 func (rect *RectangleShape) GetPointCount() uint32 {
+	//TODO
 	return 0
 }
 
 func (rect *RectangleShape) GetPoint(index uint) Vector2D.Vector2D {
+	//TODO
 	return Vector2D.Zero()
 }
