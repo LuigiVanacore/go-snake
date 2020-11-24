@@ -3,15 +3,15 @@ package Vector2D
 import "fmt"
 
 type Vector2D struct {
-	X float32
-	Y float32
+	X float64
+	Y float64
 }
 
-func New(x, y float32) Vector2D {
+func New(x, y float64) Vector2D {
 	return Vector2D{x, y}
 }
 
-func FromScalar(v float32) Vector2D {
+func FromScalar(v float64) Vector2D {
 	return Vector2D{v, v}
 }
 
@@ -43,11 +43,11 @@ func (v Vector2D) Divide(v2 Vector2D) Vector2D {
 	return Vector2D{v.X / v2.X, v.Y / v2.Y}
 }
 
-func (v Vector2D) MultiplyScalar(s float32) Vector2D {
+func (v Vector2D) MultiplyScalar(s float64) Vector2D {
 	return Vector2D{v.X * s, v.Y * s}
 }
 
-func (v Vector2D) DivideScalar(s float32) Vector2D {
+func (v Vector2D) DivideScalar(s float64) Vector2D {
 	return Vector2D{v.X / s, v.Y / s}
 }
 

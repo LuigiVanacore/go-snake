@@ -5,8 +5,8 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	var x = float32(1.1)
-	var y = float32(2.2)
+	var x = float64(1.1)
+	var y = float64(2.2)
 
 	v := New(x, y)
 	if v.X != x || v.Y != y {
@@ -15,7 +15,7 @@ func TestNew(t *testing.T) {
 }
 
 func TestFromScalar(t *testing.T) {
-	var s = float32(1.1)
+	var s = float64(1.1)
 
 	v := FromScalar(s)
 	if v.X != s || v.Y != s {
@@ -38,8 +38,8 @@ func TestUnit(t *testing.T) {
 }
 
 func TestCopy(t *testing.T) {
-	var x = float32(1.1)
-	var y = float32(2.2)
+	var x = float64(1.1)
+	var y = float64(2.2)
 
 	v1 := Vector2D{x, y}
 	v2 := v1.Copy()
@@ -49,10 +49,10 @@ func TestCopy(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	var x1 = float32(1)
-	var y1 = float32(2)
-	var x2 = float32(4)
-	var y2 = float32(8)
+	var x1 = float64(1)
+	var y1 = float64(2)
+	var x2 = float64(4)
+	var y2 = float64(8)
 
 	v1 := Vector2D{x1, y1}
 	v2 := Vector2D{x2, y2}
@@ -63,10 +63,10 @@ func TestAdd(t *testing.T) {
 }
 
 func TestSubtract(t *testing.T) {
-	var x1 = float32(1)
-	var y1 = float32(2)
-	var x2 = float32(4)
-	var y2 = float32(8)
+	var x1 = float64(1)
+	var y1 = float64(2)
+	var x2 = float64(4)
+	var y2 = float64(8)
 
 	v1 := Vector2D{x1, y1}
 	v2 := Vector2D{x2, y2}
@@ -77,10 +77,10 @@ func TestSubtract(t *testing.T) {
 }
 
 func TestMultiply(t *testing.T) {
-	var x1 = float32(1)
-	var y1 = float32(2)
-	var x2 = float32(4)
-	var y2 = float32(8)
+	var x1 = float64(1)
+	var y1 = float64(2)
+	var x2 = float64(4)
+	var y2 = float64(8)
 
 	v1 := Vector2D{x1, y1}
 	v2 := Vector2D{x2, y2}
@@ -91,10 +91,10 @@ func TestMultiply(t *testing.T) {
 }
 
 func TestDivide(t *testing.T) {
-	var x1 = float32(1)
-	var y1 = float32(2)
-	var x2 = float32(4)
-	var y2 = float32(10)
+	var x1 = float64(1)
+	var y1 = float64(2)
+	var x2 = float64(4)
+	var y2 = float64(10)
 
 	v1 := Vector2D{x1, y1}
 	v2 := Vector2D{x2, y2}
@@ -105,8 +105,8 @@ func TestDivide(t *testing.T) {
 }
 
 func TestMultiplyScalar(t *testing.T) {
-	var x = float32(1)
-	var y = float32(2)
+	var x = float64(1)
+	var y = float64(2)
 
 	v := Vector2D{x, y}
 	result := v.MultiplyScalar(1.1)
@@ -116,8 +116,8 @@ func TestMultiplyScalar(t *testing.T) {
 }
 
 func TestDivideScalar(t *testing.T) {
-	var x = float32(1)
-	var y = float32(2)
+	var x = float64(1)
+	var y = float64(2)
 
 	v := Vector2D{x, y}
 	result := v.DivideScalar(2)
@@ -127,8 +127,8 @@ func TestDivideScalar(t *testing.T) {
 }
 
 func TestString(t *testing.T) {
-	var x = float32(1)
-	var y = float32(2)
+	var x = float64(1)
+	var y = float64(2)
 
 	v := Vector2D{x, y}
 	result := v.String()
