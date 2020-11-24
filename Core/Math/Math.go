@@ -1,6 +1,6 @@
 package Math
 
-func Min(x float32, y float32) float32 {
+func Min(x float64, y float64) float64 {
 	if x == 0 || x == y {
 		return x
 	}
@@ -10,7 +10,7 @@ func Min(x float32, y float32) float32 {
 	return y
 }
 
-func Max(x float32, y float32) float32 {
+func Max(x float64, y float64) float64 {
 	if x == 0 || x == y {
 		return x
 	}

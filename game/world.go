@@ -1,11 +1,58 @@
 package game
 
 import (
-	"luigi.vanacore/go-snake/Core/Vector2D"
+	"github.com/hajimehoshi/ebiten/v2"
+	"math/rand"
 )
 
+const blockSize = 16
+
 type World struct {
-	windowsSize Vector2D.Vector2D
+	windowsWidth int
+	windowHeigth int
+	snake        *Snake
+	apple        *ShapeNode
+}
+
+func NewWorld(screenWidth int, screenHeight int) *World {
+	snake := NewSnake()
+	return &World{windowsWidth: screenWidth, windowHeigth: screenHeight, snake: snake}
+}
+
+func (w *World) Init() {
+	w.snake.Init()
+}
+
+func (w *World) Update() {
+	w.snake.Update()
+	//if(l_player.GetPosition() == m_item){
+	//	l_player.Extend();
+	//	l_player.IncreaseScore();
+	//	RespawnApple();
+	//}
+	//
+	//int gridSize_x = m_windowSize.x / m_blockSize;
+	//int gridSize_y = m_windowSize.y / m_blockSize;
+	//
+	//if(l_player.GetPosition().x <= 0 ||
+	//	l_player.GetPosition().y <= 0 ||
+	//	l_player.GetPosition().x >= gridSize_x - 1 ||
+	//	l_player.GetPosition().y >= gridSize_y - 1)
+	//{
+	//	l_player.Lose();
+	//}
+}
+
+func (w *World) Draw(screen *ebiten.Image) {
+	w.snake.Draw(screen)
+}
+
+func (w *World) RespawnApple() {
+	maxX := (w.windowsWidth / blockSize) - 2
+	maxY := (w.windowHeigth / blockSize) - 2
+	positionX := rand.Intn(maxX-1) + 1
+	positionY := rand.Intn(maxY-1) + 1
+	w.apple.GetTransform().Apply(float64(positionX*blockSize), float64(positionY*blockSize))
 }
 
 //

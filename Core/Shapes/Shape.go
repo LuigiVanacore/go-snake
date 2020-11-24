@@ -1,5 +1,10 @@
 package Shapes
 
+import (
+	"github.com/hajimehoshi/ebiten/v2"
+	"luigi.vanacore/go-snake/Core/Rect"
+)
+
 type Shape struct {
 	//const Texture* m_texture;          //!< Texture of the shape
 	//IntRect        m_textureRect;      //!< Rectangle defining the area of the source texture to display
@@ -10,6 +15,13 @@ type Shape struct {
 	//VertexArray    m_outlineVertices;  //!< Vertex array containing the outline geometry
 	//FloatRect      m_insideBounds;     //!< Bounding rectangle of the inside (fill)
 	//FloatRect      m_bounds;
+	//fillColor
+	//outlineColor ebiten.ColorM
+	//outlineThickness float32
+	texture      ebiten.Image
+	textureRect  Rect.Rect
+	insideBounds Rect.Rect
+	bounds       Rect.Rect
 }
 
 func (s *Shape) SetTexture() {

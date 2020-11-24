@@ -6,13 +6,13 @@ import (
 )
 
 type Rect struct {
-	Left   float32
-	Top    float32
-	Width  float32
-	Height float32
+	Left   float64
+	Top    float64
+	Width  float64
+	Height float64
 }
 
-func New(left float32, top float32, width float32, height float32) Rect {
+func New(left float64, top float64, width float64, height float64) Rect {
 	return Rect{left, top, width, height}
 }
 
@@ -28,7 +28,7 @@ func Zero() Rect {
 	return Rect{Left: 0, Top: 0, Width: 0, Height: 0}
 }
 
-func (r *Rect) Contains(x float32, y float32) bool {
+func (r *Rect) Contains(x float64, y float64) bool {
 	minX := Math.Min(r.Left, r.Left+r.Width)
 	maxX := Math.Max(r.Left, r.Left+r.Width)
 	minY := Math.Min(r.Top, r.Top+r.Height)
@@ -37,7 +37,6 @@ func (r *Rect) Contains(x float32, y float32) bool {
 }
 
 func (r *Rect) Intersects(rectangle Rect) bool {
-	//TODO
 
 	r1MinX := Math.Min(r.Left, r.Left+r.Width)
 	r1MaxX := Math.Max(r.Left, r.Left+r.Width)
