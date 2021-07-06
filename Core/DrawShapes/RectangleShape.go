@@ -1,4 +1,4 @@
-package Shapes
+package DrawShapes
 
 import "luigi.vanacore/go-snake/Core/Vector2D"
 

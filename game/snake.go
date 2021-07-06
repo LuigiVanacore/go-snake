@@ -190,5 +190,5 @@ func (s *Snake) Update() {
 //int m_lives; // Lives.
 //int m_score; // Score.
 //bool m_lost; // Losing state.
-//sf::RectangleShape m_bodyRect; // Shape used in rendering.
+//sf::RectangleShape m_bodyRect; // Shapes used in rendering.
 //Textbox* m_log;

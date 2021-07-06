@@ -1,8 +1,8 @@
-package Shapes
+package DrawShapes
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-	"luigi.vanacore/go-snake/Core/Rect"
+	Shape2 "luigi.vanacore/go-snake/Core/Shapes"
 )
 
 type Shape struct {
@@ -19,9 +19,9 @@ type Shape struct {
 	//outlineColor ebiten.ColorM
 	//outlineThickness float32
 	texture      ebiten.Image
-	textureRect  Rect.Rect
-	insideBounds Rect.Rect
-	bounds       Rect.Rect
+	textureRect  Shape2.Rect
+	insideBounds Shape2.Rect
+	bounds       Shape2.Rect
 }
 
 func (s *Shape) SetTexture() {
@@ -214,7 +214,7 @@ func (s *Shape) SetTextureRect() {
 ///// \brief Default constructor
 /////
 //////////////////////////////////////////////////////////////
-//Shape();
+//Shapes();
 //
 //////////////////////////////////////////////////////////////
 ///// \brief Recompute the internal geometry of the shape
