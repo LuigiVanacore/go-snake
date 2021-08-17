@@ -1,18 +1,18 @@
 package Shapes
 
 import (
-	"luigi.vanacore/go-snake/Core/Collision"
+	"luigi.vanacore/go-snake/Core/Transform"
 	"luigi.vanacore/go-snake/Core/Utils"
 )
 
 type Rect struct {
-	Point
+	Transform.Position
 	Width  float64
 	Height float64
 }
 
 func NewRect(x float64, y float64, width float64, height float64) *Rect {
-	return &Rect{Point{x, y}, width, height}
+	return &Rect{Position: Transform.Position{X: x, Y: y}, Width: width, Height: height}
 }
 
 func (r *Rect) GetPosition() (float64, float64) {
@@ -38,26 +38,6 @@ func (r *Rect) GetCenter() (float64, float64) {
 }
 func (r *Rect) Equal(rectangle Rect) bool {
 	return (r.X == rectangle.X) && (r.Width == rectangle.Width) && (r.Y == rectangle.Y) && (r.Height == rectangle.Height)
-}
-
-func (r *Rect) IsColliding(collision Collision.Collision) bool {
-	switch c := collision.(type) {
-	case *Point:
-		return r.Contains(c.X, c.Y)
-	case *Rect:
-		return r.IntersectRect(c)
-	case *Circle:
-	default:
-		return false
-	}
-	return false
-}
-
-func (r *Rect) WillCollide(collision Collision.Collision, dx float64, dy float64) bool {
-	rectTemp := r
-	rectTemp.X += dx
-	rectTemp.Y += dy
-	return rectTemp.IsColliding(collision)
 }
 
 func (r *Rect) Contains(x float64, y float64) bool {

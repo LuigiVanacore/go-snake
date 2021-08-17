@@ -24,6 +24,17 @@ type Snake struct {
 	score     int
 	isDead    bool
 	body      []*SnakePart
+	//stateMachine FSM.StateMachine
+}
+
+type SnakeLiveState struct {
+}
+
+func (s *SnakeLiveState) Execute() {
+
+}
+
+type SnakeDeadState struct {
 }
 
 func NewSnake() *Snake {

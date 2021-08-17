@@ -1,10 +1,6 @@
 package DrawShapes
 
-import (
-	"github.com/hajimehoshi/ebiten/v2"
-	Shape2 "luigi.vanacore/go-snake/Core/Shapes"
-)
-
+/*
 type Shape struct {
 	//const Texture* m_texture;          //!< Texture of the shape
 	//IntRect        m_textureRect;      //!< Rectangle defining the area of the source texture to display
@@ -31,7 +27,7 @@ func (s *Shape) SetTexture() {
 func (s *Shape) SetTextureRect() {
 	//TODO
 }
-
+*/
 //void setTexture(const Texture* texture, bool resetRect = false);
 //
 //////////////////////////////////////////////////////////////
