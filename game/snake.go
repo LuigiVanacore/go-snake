@@ -5,7 +5,6 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"image/color"
-	"luigi.vanacore/go-snake/Core/Transform"
 )
 
 const (
@@ -18,7 +17,7 @@ const (
 
 type Snake struct {
 	direction int
-	snakeBody []Transform.Position
+	snakeBody []SnakePart
 	size      int
 	speed     int
 	lives     int
@@ -29,12 +28,11 @@ type Snake struct {
 
 func NewSnake() *Snake {
 	snake := &Snake{
-		snakeBody: make([]Transform.Position, 1),
+		snakeBody: make([]SnakePart, 1),
 		moveTime:  4,
 		direction: None,
 	}
-	snake.snakeBody[0].X = XNumInScreen / 2
-	snake.snakeBody[0].Y = YNumInScreen / 2
+	snake.snakeBody[0].SetPosition(XNumInScreen/2, YNumInScreen/2)
 	return snake
 }
 
@@ -45,8 +43,8 @@ func NewSnake() *Snake {
 
 func (s *Snake) collidesWithSelf() bool {
 	for _, v := range s.snakeBody[1:] {
-		if s.snakeBody[0].X == v.X &&
-			s.snakeBody[0].Y == v.Y {
+		if s.snakeBody[0].GetPosition().X == v.GetPosition().X &&
+			s.snakeBody[0].GetPosition().Y == v.GetPosition().Y {
 			return true
 		}
 	}
@@ -54,10 +52,10 @@ func (s *Snake) collidesWithSelf() bool {
 }
 
 func (s *Snake) collidesWithWall() bool {
-	return s.snakeBody[0].X < 0 ||
-		s.snakeBody[0].Y < 0 ||
-		s.snakeBody[0].X >= XNumInScreen ||
-		s.snakeBody[0].Y >= YNumInScreen
+	return s.snakeBody[0].GetPosition().X < 0 ||
+		s.snakeBody[0].GetPosition().Y < 0 ||
+		s.snakeBody[0].GetPosition().X >= XNumInScreen ||
+		s.snakeBody[0].GetPosition().Y >= YNumInScreen
 }
 
 func (s *Snake) needsToMoveSnake() bool {
@@ -75,8 +73,7 @@ func (s *Snake) GetDirection() int {
 func (s *Snake) reset() {
 	s.moveTime = 4
 	s.snakeBody = s.snakeBody[:1]
-	s.snakeBody[0].X = XNumInScreen / 2
-	s.snakeBody[0].Y = YNumInScreen / 2
+	s.snakeBody[0].SetPosition(XNumInScreen/2, YNumInScreen/2)
 	s.direction = None
 }
 
@@ -129,19 +126,10 @@ func (s *Snake) Update() error {
 		//}
 
 		for i := int64(len(s.snakeBody)) - 1; i > 0; i-- {
-			s.snakeBody[i].X = s.snakeBody[i-1].X
-			s.snakeBody[i].Y = s.snakeBody[i-1].Y
+			s.snakeBody[i].SetPosition(s.snakeBody[i-1].GetPosition().X,
+				s.snakeBody[i-1].GetPosition().Y)
 		}
-		switch s.direction {
-		case Left:
-			s.snakeBody[0].X--
-		case Right:
-			s.snakeBody[0].X++
-		case Down:
-			s.snakeBody[0].Y++
-		case Up:
-			s.snakeBody[0].Y--
-		}
+		s.snakeBody[0].Move(s.direction)
 	}
 
 	s.timer++
@@ -151,7 +139,7 @@ func (s *Snake) Update() error {
 
 func (s *Snake) Draw(screen *ebiten.Image) {
 	for _, v := range s.snakeBody {
-		ebitenutil.DrawRect(screen, float64(v.X*GridSize), float64(v.Y*GridSize), GridSize, GridSize, color.RGBA{0x80, 0xa0, 0xc0, 0xff})
+		ebitenutil.DrawRect(screen, float64(v.GetPosition().X*GridSize), float64(v.GetPosition().Y*GridSize), GridSize, GridSize, color.RGBA{0x80, 0xa0, 0xc0, 0xff})
 	}
 }
 

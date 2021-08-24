@@ -1,29 +1,41 @@
 package game
 
 import (
-	"github.com/hajimehoshi/ebiten/v2"
-	"luigi.vanacore/go-snake/Core/Vector2D"
+	"luigi.vanacore/go-snake/Core/Transform"
 )
 
 type SnakePart struct {
-	ShapeNode *ShapeNode
-	Position  Vector2D.Vector2D
+	position Transform.Position
 }
 
-func New(body *ShapeNode, position Vector2D.Vector2D) *SnakePart {
-	return &SnakePart{ShapeNode: body, Position: position}
+func NewSnakePart(position Transform.Position) *SnakePart {
+	return &SnakePart{position: position}
 }
 
-func (s *SnakePart) GetNode() *ShapeNode {
-	return s.ShapeNode
+func (s *SnakePart) GetPosition() Transform.Position {
+	return s.position
 }
 
-func (s *SnakePart) GetPosition() Vector2D.Vector2D {
-	return s.Position
+func (s *SnakePart) SetPosition(x, y float64) {
+	s.position.X = x
+	s.position.Y = y
 }
 
-func (s *SnakePart) Draw(screen *ebiten.Image) {
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(s.Position.X, s.Position.Y)
-	screen.DrawImage(s.ShapeNode.GetImage(), op)
+func (s *SnakePart) Move(direction int) {
+	switch direction {
+	case Left:
+		s.position.X--
+	case Right:
+		s.position.X++
+	case Down:
+		s.position.Y++
+	case Up:
+		s.position.Y--
+	}
 }
+
+//func (s *SnakePart) Draw(screen *ebiten.Image) {
+//	op := &ebiten.DrawImageOptions{}
+//	op.GeoM.Translate(s.Position.X, s.Position.Y)
+//	screen.DrawImage(s.ShapeNode.GetImage(), op)
+//}
