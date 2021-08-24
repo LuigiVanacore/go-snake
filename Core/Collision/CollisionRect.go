@@ -9,7 +9,7 @@ type Rect struct {
 	Shapes.Rect
 }
 
-func (r *Rect) IsColliding(collision Collision) (error, bool) {
+func (r *Rect) IsColliding(collision CollisionShape) (error, bool) {
 	switch c := collision.(type) {
 	case *Point:
 		return nil, r.Contains(c.X, c.Y)
@@ -17,10 +17,10 @@ func (r *Rect) IsColliding(collision Collision) (error, bool) {
 		return nil, r.IntersectRect(&c.Rect)
 	case *Circle:
 	}
-	return fmt.Errorf("collision object provided not valid", collision), false
+	return fmt.Errorf("CollisionShape object provided not valid", collision), false
 }
 
-func (r *Rect) WillCollide(collision Collision, dx float64, dy float64) bool {
+func (r *Rect) WillCollide(collision CollisionShape, dx float64, dy float64) bool {
 	rectTemp := r
 	rectTemp.X += dx
 	rectTemp.Y += dy

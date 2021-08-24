@@ -10,7 +10,7 @@ type Circle struct {
 	Shapes.Circle
 }
 
-func (c *Circle) IsColliding(collision Collision) (error, bool) {
+func (c *Circle) IsColliding(collision CollisionShape) (error, bool) {
 	switch coll := collision.(type) {
 	case *Point:
 		return nil, c.Contains(c.X, c.Y)
@@ -33,11 +33,11 @@ func (c *Circle) IsColliding(collision Collision) (error, bool) {
 	case *Circle:
 		return nil, Utils.Distance(c.X, c.Y, coll.X, coll.Y) <= c.Radius+coll.Radius
 	default:
-		return fmt.Errorf("collision object provided not valid %d", collision), false
+		return fmt.Errorf("CollisionShape object provided not valid %d", collision), false
 	}
 }
 
-func (c *Circle) WillCollide(collision Collision, dx float64, dy float64) bool {
+func (c *Circle) WillCollide(collision CollisionShape, dx float64, dy float64) bool {
 	circleTemp := c
 	circleTemp.X += dx
 	circleTemp.Y += dy
