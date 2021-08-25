@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"image/color"
 	"math/rand"
 	"time"
 )
@@ -15,14 +14,9 @@ const (
 	YNumInScreen = ScreenHeight / GridSize
 )
 
-type Position struct {
-	X int
-	Y int
-}
-
 type Game struct {
 	snake     *Snake
-	apple     Position
+	apple     *Apple
 	score     int
 	bestScore int
 	level     int
@@ -33,9 +27,8 @@ func init() {
 }
 
 func NewGame() *Game {
-	g := &Game{
-		apple: Position{X: 3 * GridSize, Y: 3 * GridSize},
-	}
+	g := &Game{}
+	g.apple = NewApple(3*GridSize, 3*GridSize)
 	g.snake = NewSnake()
 	return g
 }
@@ -95,8 +88,7 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	g.snake.Draw(screen)
-	ebitenutil.DrawRect(screen, float64(g.apple.X*GridSize), float64(g.apple.Y*GridSize), GridSize, GridSize, color.RGBA{0xFF, 0x00, 0x00, 0xff})
-
+	g.apple.Draw(screen)
 	if g.snake.GetDirection() == None {
 		ebitenutil.DebugPrint(screen, fmt.Sprintf("Press up/down/left/right to start"))
 	} else {
